@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  cloudflare-tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflare-tunnel
+    restart: unless-stopped
+    env_file: .env
+    command: tunnel --no-autoupdate run
+    networks:
+      - proxy # network name of the service that you want to expose
+
+networks:
+  proxy: # network for the service that you want to expose
+    external: true
